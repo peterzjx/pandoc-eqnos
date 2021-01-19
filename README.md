@@ -11,7 +11,7 @@ Identical to the original `pandoc-eqnos`. If you need more than html5+mathjax, c
 ### Native mathjax numbering
 Due to the complex alignment issue of multiple labels within a `math-display` equation, the numbering will be based on the native `mathjax` `tag` feature instead of the html-css approach. Turn off the automatic numbering in `mathjax` to avoid conflict.
 
-*Note*: By default `pandoc` changes the multiline environment names to `aligned` or `gathered` when converted from `latex`, which do not support `tag`. Use `align` or `gather` instead.
+**Note**: By default `pandoc` changes the multiline environment names to `aligned` or `gathered` when converted from `latex`, which do not support `tag`. Use `align` or `gather` instead.
 
 ### Multiple labels within multiline environment
 Use `sublabel` attribute for individual sub-labels within one math display environment. Separate the sublabels by comma (`,`) with no space. Each sublabel must also conform with the naming convention by starting with `eq:`.
@@ -26,13 +26,14 @@ By default, the sublabels will be numbered (see below for the detailed increment
 
 To display the corresponding numbering, the equation body should contain the same number of `\label{..}` as the number of the sublabels. The actual label names do not matter, the numbering will be based on the order of appearance.
 
+#### References
+Each sublabel will be referenceble, whose html target points to an empty `<span>` with the sublabel as id. Note that this element is not actually a children element of the `math-display`.
+
 #### Number incremental strategy
-If the `id` of the main equation is absent (i.e. to be exactly `#eq:`), the environment is considered to be anonymous and each sublabel will have its own number, and the main equation will not be referenceable. Otherwise, all sublabels will share a major numerical number and each will have a minor number (alphabetical). Both the main label and sublabels are referenceable.
+If the `id` of the main equation is absent (i.e. to be exactly `#eq:`), the environment is considered anonymous and each sublabel will have its own number, while the main equation will not be referenceable. Otherwise, all sublabels will display a shared major numerical index and each will have a minor alphabetical index. Both the main label and sublabels are referenceable.
 
 #### Tags
-If attribute `tag` is set for the environment, the numbering of all the sublabels inside will be skipped although can still be referenced.
-
-To add individual tags for the subequations, avoid using `tag` attribute and use the native `\tag{}` latex command.
+If attribute `tag` is set for the environment, the numbering of all the sublabels inside will be skipped although can still be referenced (TODO: the displayed ref link will have incorrect numbering). The numbering of sublabels will not be displayed. To add individual tags for the subequations, avoid using `tag` attribute and use the native `\tag{}` latex command.
 
 ## Demo
 ```
